@@ -16,13 +16,14 @@ def get_counts():
         ✅ tsconfig.betterer.json: "tsconfig.betterer.json" stayed the same. (5,771
         issues) 😐
     """
-    os.chdir('../glints/api')
+    initial_dir = os.getcwd()
+    os.chdir("../glints/api")
     subprocess.run(["git", "pull", "origin"])
     subprocess.run(["yarn"])
     subprocess.run(["rm", "-rf", "dist"])
     subprocess.run(["yarn", "build"])
-    out = subprocess.run(["yarn", "betterer:ci"],
-                         capture_output=True, encoding='utf8')
+    out = subprocess.run(["yarn", "betterer:ci"], capture_output=True, encoding="utf8")
+    os.chdir(initial_dir)
     s = out.stdout
     es_error_search = re.search(
         '"\.eslintrc\.betterer\.js" stayed the same. \(([\d,]*)', s

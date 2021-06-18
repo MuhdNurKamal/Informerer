@@ -45,12 +45,16 @@ reports = [
 report_sections = list(
     map(
         lambda report: [
+            {"type": "divider"},
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "{} {}: {:,d}".format(
-                        report["logo"], report["label"], report["count"]
+                    "text": "{} {}: {:,d}    :small_red_triangle_down: {:,d}".format(
+                        report["logo"],
+                        report["label"],
+                        report["count"],
+                        report["prev_count"] - report["count"],
                     ),
                 },
             },
@@ -58,8 +62,7 @@ report_sections = list(
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": ":small_red_triangle_down: {:,d}. Estimated time to zero: {}".format(
-                        report["prev_count"] - report["count"],
+                    "text": ":rocket: Countdown to zero: {}".format(
                         get_time_to_zero(
                             report["prev_date"],
                             time.time(),
@@ -78,9 +81,9 @@ response = webhook.send(
     text="Informerer Report",
     blocks=[
         {
-            "type": "section",
+            "type": "header",
             "text": {
-                "type": "mrkdwn",
+                "type": "plain_text",
                 "text": ":tada: This week's Betterer Error Counts :tada:",
             },
         },

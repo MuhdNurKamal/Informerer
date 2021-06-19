@@ -12,7 +12,7 @@ load_dotenv()
 
 def get_time_to_zero(prev, curr, prev_count, curr_count):
     delta_seconds = 0
-    if prev_count == curr_count:
+    if prev_count <= curr_count:
         delta_seconds = 3.154e8
     else:
         delta_seconds = (curr - prev) / (prev_count - curr_count) * curr_count

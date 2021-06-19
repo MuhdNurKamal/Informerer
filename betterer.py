@@ -17,12 +17,13 @@ def get_counts():
         issues) 😐
     """
     initial_dir = os.getcwd()
-    os.chdir("../glints/api")
+    os.chdir(os.environ.get('REPO_LOCATION'))
     subprocess.run(["git", "pull", "origin"])
     subprocess.run(["yarn"])
     subprocess.run(["rm", "-rf", "dist"])
     subprocess.run(["yarn", "build"])
-    out = subprocess.run(["yarn", "betterer:ci"], capture_output=True, encoding="utf8")
+    out = subprocess.run(["yarn", "betterer:ci"],
+                         capture_output=True, encoding="utf8")
     os.chdir(initial_dir)
     s = out.stdout
     es_error_search = re.search(

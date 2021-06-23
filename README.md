@@ -1,4 +1,5 @@
 # Informerer
+Track your weekly [Betterer](https://github.com/phenomnomnominal/betterer) improvements on your Slack channel
 
 ## Getting Started
 
